@@ -1,20 +1,10 @@
 # Sitio Web Sanchez Bricks
-# Sitio Web Sanchez Bricks
 
 Este repositorio contiene el sitio estático de **Sanchez Bricks**.
 
-> Usuario GitHub configurado: **AkaBronko1** (ajusta si cambias de cuenta)
+> Usuario GitHub actual: **AkaBronko1**
 
 ## Estructura
-4. Agrega el remoto (ya personalizado con tu usuario `AkaBronko1`):
-   ```powershell
-   git remote add origin https://github.com/AkaBronko1/sanchez-bricks.git
-6. Espera 1-2 minutos y visita: `https://AkaBronko1.github.io/sanchez-bricks/`
-- A: 185.199.108.153
-  
-3. Crea archivo `CNAME` en la raíz del repo con SOLO tu dominio (sin `www` si usarás raíz):
-./deploy.ps1 -User AkaBronko1 -Repo sanchez-bricks -MainBranch main
-```
 website/
   index.html
   productos.html
@@ -53,13 +43,13 @@ website/
    git commit -m "Publicación inicial"
    git branch -M main
    ```
-4. Agrega el remoto (reemplaza TU_USUARIO):
+4. Agrega el remoto (ya personalizado):
    ```powershell
-   git remote add origin https://github.com/TU_USUARIO/sanchez-bricks.git
+   git remote add origin https://github.com/AkaBronko1/sanchez-bricks.git
    git push -u origin main
    ```
 5. En GitHub: Settings > Pages > (Build and deployment) > Source: "Deploy from a branch" > Branch: `main` / folder: `/ (root)` > Save.
-6. Espera 1-2 minutos y visita: `https://TU_USUARIO.github.io/sanchez-bricks/`
+6. Espera 1-2 minutos y visita: `https://AkaBronko1.github.io/sanchez-bricks/`
 
 ### Actualizar cambios
 ```powershell
@@ -68,19 +58,12 @@ git commit -m "Actualiza contenido"
 git push
 ```
 
-## Opcional: Dominio personalizado
-1. Compra un dominio.
-2. En DNS agrega:
-   - A: 185.199.108.153
-   - A: 185.199.109.153
-   - A: 185.199.110.153
-   - A: 185.199.111.153
-   - (opcional) CNAME `www` -> `TU_USUARIO.github.io`
-3. Crea archivo `CNAME` en la raíz del repo con SOLO tu dominio (sin `www` si usarás raíz):
-   ```
-   midominio.com
-   ```
-4. Haz commit y push. En Settings > Pages activa "Enforce HTTPS" cuando aparezca.
+## (Opcional futuro) Dominio personalizado
+Cuando compres un dominio podrás:
+1. Crear 4 registros A a 185.199.108.153 / 109.153 / 110.153 / 111.153.
+2. CNAME `www` -> `AkaBronko1.github.io` (opcional).
+3. Añadir archivo `CNAME` con el dominio (sin `www`).
+4. Guardar en Settings > Pages y activar HTTPS.
 
 ## Script de despliegue rápido
 Se incluye `deploy.ps1` para automatizar (ver sección siguiente) si prefieres.
@@ -92,7 +75,7 @@ Variables clave dentro del script:
 
 Puedes ejecutarlo así:
 ```powershell
-./deploy.ps1 -User TU_USUARIO -Repo sanchez-bricks -MainBranch main
+./deploy.ps1 -User AkaBronko1 -Repo sanchez-bricks -MainBranch main
 ```
 
 ## Buenas prácticas

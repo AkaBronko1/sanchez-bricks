@@ -58,12 +58,57 @@ git commit -m "Actualiza contenido"
 git push
 ```
 
-## (Opcional futuro) Dominio personalizado
-Cuando compres un dominio podrás:
-1. Crear 4 registros A a 185.199.108.153 / 109.153 / 110.153 / 111.153.
-2. CNAME `www` -> `AkaBronko1.github.io` (opcional).
-3. Añadir archivo `CNAME` con el dominio (sin `www`).
-4. Guardar en Settings > Pages y activar HTTPS.
+## Dominio personalizado con Cloudflare (sanchezbricks.com)
+
+### Archivos en el repositorio
+Debe existir un archivo `CNAME` en la raíz (junto a `index.html`) con:
+```
+sanchezbricks.com
+```
+
+### Configuración en GitHub Pages
+1. Ir a Settings > Pages.
+2. En Custom domain escribir: `sanchezbricks.com` y guardar.
+3. Activar "Enforce HTTPS" cuando el candado aparezca (puede tardar unos minutos tras la propagación DNS).
+
+### DNS en Cloudflare (Zona: sanchezbricks.com)
+Registros recomendados (proxy activado naranja SI quieres caché básica):
+| Tipo | Nombre | Contenido | TTL | Proxy |
+|------|--------|----------|-----|-------|
+| A | @ | 185.199.108.153 | Auto | ON |
+| A | @ | 185.199.109.153 | Auto | ON |
+| A | @ | 185.199.110.153 | Auto | ON |
+| A | @ | 185.199.111.153 | Auto | ON |
+| CNAME | www | AkaBronko1.github.io | Auto | ON |
+
+Cloudflare hace CNAME flattening automático para el apex (@). Si no quieres usar `www`, puedes dejarlo igual apuntando para redirigir.
+
+### Redirección www -> raíz (opcional)
+En Cloudflare > Rules > Redirect Rules:
+Crear regla:
+- Si Hostname equals `www.sanchezbricks.com`
+- Forwarding URL (301) a `https://sanchezbricks.com/$1`
+
+### SSL/TLS en Cloudflare
+1. SSL/TLS > Overview: modo "Full" (no "Flexible").
+2. Edge Certificates: asegurar que HTTP/2 y Always Use HTTPS estén habilitados.
+
+### Limpieza de caché al cambiar
+Si cambias el archivo `CNAME` o la configuración:
+1. Hacer commit y push.
+2. Purge Cache en Cloudflare (opcional: Purge Everything).
+3. Esperar 2–10 minutos.
+4. Probar en ventana incógnito.
+
+### Verificación
+Comprobar con:
+```
+nslookup sanchezbricks.com
+nslookup www.sanchezbricks.com
+```
+Deberían resolver a las IP de GitHub Pages.
+
+Si ves un redirect incorrecto, verificar que NO exista caché de un antiguo `CNAME` y que la regla de redirección esté bien.
 
 ## Script de despliegue rápido
 Se incluye `deploy.ps1` para automatizar (ver sección siguiente) si prefieres.

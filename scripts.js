@@ -12,6 +12,9 @@
   illustrate the interactions described in the specification.
 */
 
+// Configuración: controlar si se muestra información técnica detallada en el listado de productos
+const SHOW_TECH_SPECS_IN_LIST = false; // Cambia a true para volver a mostrar rendimiento y botón "Ver ficha"
+
 // Sample product catalogue
 const products = [
   {
@@ -187,11 +190,18 @@ function renderProductList() {
     text.className = 'card-text';
     text.textContent = product.usos;
     body.appendChild(text);
-    // Rendimiento
-    const rend = document.createElement('p');
-    rend.className = 'card-text';
-    rend.textContent = `Rendimiento: ${product.rendimiento} pzas/m²`;
-    body.appendChild(rend);
+    if (SHOW_TECH_SPECS_IN_LIST) {
+      // Rendimiento (solo si se habilitan fichas técnicas)
+      const rend = document.createElement('p');
+      rend.className = 'card-text';
+      rend.textContent = `Rendimiento: ${product.rendimiento} pzas/m²`;
+      body.appendChild(rend);
+    } else {
+      const placeholder = document.createElement('p');
+      placeholder.className = 'card-text note';
+      placeholder.textContent = 'Ficha técnica próximamente';
+      body.appendChild(placeholder);
+    }
     // Colores chips
     const chips = document.createElement('div');
     chips.className = 'chips mt-2';
@@ -205,12 +215,14 @@ function renderProductList() {
     // Buttons row
     const btnRow = document.createElement('div');
     btnRow.className = 'mt-4';
-    // Ver ficha
-    const btnFicha = document.createElement('a');
-    btnFicha.href = `producto.html?slug=${product.slug}`;
-    btnFicha.className = 'btn btn-light';
-    btnFicha.textContent = 'Ver ficha';
-    btnRow.appendChild(btnFicha);
+    if (SHOW_TECH_SPECS_IN_LIST) {
+      // Ver ficha
+      const btnFicha = document.createElement('a');
+      btnFicha.href = `producto.html?slug=${product.slug}`;
+      btnFicha.className = 'btn btn-light';
+      btnFicha.textContent = 'Ver ficha';
+      btnRow.appendChild(btnFicha);
+    }
     // Comparar
     const btnCompare = document.createElement('button');
     btnCompare.type = 'button';

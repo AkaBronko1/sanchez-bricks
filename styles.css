@@ -295,6 +295,11 @@ header .nav .cta {
   margin-bottom: 0.75rem;
 }
 
+.note {
+  font-style: italic;
+  color: var(--coffee-800);
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;

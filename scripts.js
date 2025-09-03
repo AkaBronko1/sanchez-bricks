@@ -14,6 +14,7 @@
 
 // Configuración: controlar si se muestra información técnica detallada en el listado de productos
 const SHOW_TECH_SPECS_IN_LIST = false; // Cambia a true para volver a mostrar rendimiento y botón "Ver ficha"
+const ENABLE_COMPARE_FEATURE = false;   // Cambia a true para volver a mostrar botón "Comparar" y barra de comparación
 
 // Sample product catalogue
 const products = [
@@ -223,14 +224,16 @@ function renderProductList() {
       btnFicha.textContent = 'Ver ficha';
       btnRow.appendChild(btnFicha);
     }
-    // Comparar
-    const btnCompare = document.createElement('button');
-    btnCompare.type = 'button';
-    btnCompare.className = 'btn btn-secondary ml-2';
-    btnCompare.textContent = 'Comparar';
-    btnCompare.dataset.slug = product.slug;
-    btnCompare.addEventListener('click', () => toggleCompare(product.slug));
-    btnRow.appendChild(btnCompare);
+    if (ENABLE_COMPARE_FEATURE) {
+      // Comparar
+      const btnCompare = document.createElement('button');
+      btnCompare.type = 'button';
+      btnCompare.className = 'btn btn-secondary ml-2';
+      btnCompare.textContent = 'Comparar';
+      btnCompare.dataset.slug = product.slug;
+      btnCompare.addEventListener('click', () => toggleCompare(product.slug));
+      btnRow.appendChild(btnCompare);
+    }
     // Cotizar
     const btnQuote = document.createElement('a');
     btnQuote.href = `cotizar.html?producto=${product.slug}`;
@@ -268,6 +271,7 @@ function toggleCompare(slug) {
  * hidden.  Each selected product is displayed as a small pill.
  */
 function updateCompareBar() {
+  if (!ENABLE_COMPARE_FEATURE) return;
   const bar = document.querySelector('#compare-bar');
   if (!bar) return;
   const itemsContainer = bar.querySelector('.compare-items');
@@ -297,6 +301,7 @@ function updateCompareBar() {
  * first column and each selected product in its own column.
  */
 function openComparisonModal() {
+  if (!ENABLE_COMPARE_FEATURE) return;
   const modal = document.querySelector('#compare-modal');
   if (!modal) return;
   const content = modal.querySelector('.modal-content');
@@ -371,6 +376,7 @@ function openComparisonModal() {
  * must contain elements with ids matching those referenced here.
  */
 function renderProductDetail() {
+  if (!ENABLE_COMPARE_FEATURE) return;
   const params = getQueryParams();
   const slug = params.slug;
   if (!slug) return;
@@ -522,9 +528,11 @@ function init() {
       });
     });
     // Compare modal open button
-    const compareBtn = document.querySelector('#compare-bar .btn-compare');
-    if (compareBtn) {
-      compareBtn.addEventListener('click', openComparisonModal);
+    if (ENABLE_COMPARE_FEATURE) {
+      const compareBtn = document.querySelector('#compare-bar .btn-compare');
+      if (compareBtn) {
+        compareBtn.addEventListener('click', openComparisonModal);
+      }
     }
   }
   // Product detail page
@@ -554,13 +562,15 @@ function init() {
     });
   }
   // Compare modal backdrop click to close
-  const compareModal = document.querySelector('#compare-modal');
-  if (compareModal) {
-    compareModal.addEventListener('click', e => {
-      if (e.target === compareModal) {
-        compareModal.style.display = 'none';
-      }
-    });
+  if (ENABLE_COMPARE_FEATURE) {
+    const compareModal = document.querySelector('#compare-modal');
+    if (compareModal) {
+      compareModal.addEventListener('click', e => {
+        if (e.target === compareModal) {
+          compareModal.style.display = 'none';
+        }
+      });
+    }
   }
 }
 

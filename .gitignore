@@ -1,0 +1,29 @@
+# Sistema
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Node / herramientas (por si luego agregas build)
+node_modules/
+dist/
+.build/
+.cache/
+.tmp/
+
+# Dependencias
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+yarn-error.log
+npm-debug.log*
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.code-workspace
+
+# Mac (si copias desde otro equipo)
+.DS_Store

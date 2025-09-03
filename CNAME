@@ -1,0 +1,4 @@
+# Sustituye esta línea por tu dominio cuando lo tengas (sin http, sin www si quieres raíz)
+# Ejemplo correcto:
+# sanchezbricks.com
+# Luego guarda, commit y push. GitHub Pages activará el dominio tras propagar DNS.
